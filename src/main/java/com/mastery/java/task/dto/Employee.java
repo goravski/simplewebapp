@@ -1,8 +1,5 @@
 package com.mastery.java.task.dto;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
-import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -95,6 +92,16 @@ public class Employee {
     public Employee() {
     }
 
+    public Employee(Long employeeId, Integer departmentId, String firstName, String lastname, String jobTitle, LocalDate dateOfBirth, Gender gender) {
+        this.employeeId = employeeId;
+        this.departmentId = departmentId;
+        this.firstName = firstName;
+        this.lastname = lastname;
+        this.jobTitle = jobTitle;
+        this.dateOfBirth = dateOfBirth;
+        this.gender = gender;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -116,8 +123,7 @@ public class Employee {
     @Override
     public String toString() {
         return "Employee{" +
-                "employeeId=" + employeeId +
-                ", departmentId=" + departmentId +
+                " departmentId=" + departmentId +
                 ", firstName='" + firstName + '\'' +
                 ", lastname='" + lastname + '\'' +
                 ", jobTitle='" + jobTitle + '\'' +

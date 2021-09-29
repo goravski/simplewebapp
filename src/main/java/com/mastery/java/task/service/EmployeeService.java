@@ -4,35 +4,36 @@ import com.mastery.java.task.dao.EmployeeDao;
 import com.mastery.java.task.dto.Employee;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 import java.util.Optional;
 
 @Service
 public class EmployeeService {
+
     private final EmployeeDao employeeDao;
 
     @Autowired
     public EmployeeService(EmployeeDao employeeDao) {
+
         this.employeeDao = employeeDao;
     }
 
 
     public List<Employee> getAllEmployees() {
+
         return employeeDao.findAll();
     }
 
-    public void addEmployee(Employee employee) {
+    public Employee addEmployee(Employee employee) {
         List<Employee> employeeList = getAllEmployees();
+        Employee employeeNew = new Employee();
         if (!employeeList.contains(employee)) {
-            employeeDao.save(employee);
+            employeeNew = employeeDao.save(employee);
         } else {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                System.out.println("This Employee is EXIST: " + employee.toString());
-
-            }
+            System.out.println("This Employee is EXIST: " + employee.toString());
         }
+        return employeeNew;
     }
 
     public Employee getEmployeeById(Long id) {
@@ -40,12 +41,6 @@ public class EmployeeService {
         Optional<Employee> optional = employeeDao.findById(id);
         if (optional.isPresent()) {
             employee = optional.get();
-        } else {
-            try {
-                throw new Exception();
-            } catch (Exception e) {
-                System.out.println("No employee with id " + id);
-            }
         }
         return employee;
     }
